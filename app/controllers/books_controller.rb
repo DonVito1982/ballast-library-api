@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, except: [:index]
+  before_action :set_book, except: [:index, :create]
 
   def index
     @books = Book.all
@@ -7,6 +7,14 @@ class BooksController < ApplicationController
   end
 
   def show
+    render json: @book
+  end
+
+  def create
+    raise Error::Unauthorized unless current_user.librarian?
+
+    book = Book.create!(book_params)
+    render json: book
   end
 
   def update
@@ -22,6 +30,6 @@ class BooksController < ApplicationController
   end
 
   def set_book
-    @book = Book.find(params[:id])
+    @book = Book.find_by!(id: params[:id])
   end
 end

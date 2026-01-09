@@ -8,6 +8,10 @@ module ErrorHandler
       render_error(exception, :bad_request)
     end
 
+    rescue_from ActiveRecord::NotNullViolation do |exception|
+      render_error(exception, :bad_request)
+    end
+
     rescue_from ActiveRecord::RecordInvalid do |exception|
       render_error(exception, :unprocessable_entity)
     end

@@ -23,7 +23,7 @@ csv_books.each do |row|
     title: row["Title"],
     author: row["Author"],
     genre: row["Genre"],
-    total: rand(3) + 1
+    total_copies: rand(3) + 1
   )
 end
 
