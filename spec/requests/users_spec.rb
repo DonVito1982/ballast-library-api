@@ -35,7 +35,25 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe "GET /index" do
-    pending "add some examples (or delete) #{__FILE__}"
+  describe "GET /me" do
+    let(:url) { "/me" }
+
+    context "Unauthenticated request" do
+      it "Does not check drinks" do
+        get url
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    context "Authenticated request" do
+      let(:parsed_body) { ActiveSupport::JSON.decode(response.body).symbolize_keys }
+      let(:member) { create(:user) }
+
+      it "Checks user" do
+        get url, headers: authenticated_header(member)
+        expect(response).to have_http_status :ok
+        expect(parsed_body).to include(first_name: member.first_name)
+      end
+    end
   end
 end

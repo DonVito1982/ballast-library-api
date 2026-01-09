@@ -5,7 +5,7 @@ class CreateBooks < ActiveRecord::Migration[8.1]
       t.string :title, null: false
       t.string :isbn, null: false
       t.string :genre, null: false
-      t.integer :total, null: false, default: 0
+      t.integer :total_copies, null: false, default: 0
 
       t.timestamps
     end

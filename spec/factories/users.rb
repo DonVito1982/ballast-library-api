@@ -17,5 +17,10 @@ FactoryBot.define do
     password { Faker::Internet.password }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
+    role { "member" }
+
+    trait :librarian do
+      role { "librarian" }
+    end
   end
 end

@@ -11,5 +11,6 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-class Book < ApplicationRecord
+class BookSerializer < ActiveModel::Serializer
+  attributes :id, :author, :genre, :isbn, :title, :total_copies
 end

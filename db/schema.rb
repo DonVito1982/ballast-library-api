@@ -17,7 +17,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_09_020539) do
     t.string "genre", null: false
     t.string "isbn", null: false
     t.string "title", null: false
-    t.integer "total", default: 0, null: false
+    t.integer "total_copies", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
