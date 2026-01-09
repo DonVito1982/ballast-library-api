@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   post "/auth/login", to: "auth#login"
 
   resources :books
+
+  resources :book_borrows
 end

@@ -17,6 +17,7 @@ class User < ApplicationRecord
   enum :role, [:librarian, :member]
 
   has_many :sessions, dependent: :destroy
+  has_many :book_borrows
 
   def alive_sessions
     sessions.where("expires_at > ?", Time.now)

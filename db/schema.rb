@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_09_020539) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_09_152628) do
+  create_table "book_borrows", force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "due_at", null: false
+    t.datetime "returned_at"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["book_id"], name: "index_book_borrows_on_book_id"
+    t.index ["user_id"], name: "index_book_borrows_on_user_id"
+  end
+
   create_table "books", force: :cascade do |t|
     t.string "author", null: false
     t.datetime "created_at", null: false
@@ -39,5 +50,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_09_020539) do
     t.string "username", null: false
   end
 
+  add_foreign_key "book_borrows", "books"
+  add_foreign_key "book_borrows", "users"
   add_foreign_key "sessions", "users"
 end
