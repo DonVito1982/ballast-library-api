@@ -1,0 +1,14 @@
+Username,FirstName,LastName,Password,Role
+user1,Daniel,Gomez,pass1,librarian
+user2,Mike,Tyson,pass2,member
+user3,Donald,Knuth,pass3,member
+user4,Lionel,Messi,pass4,member
+user5,Astor,Piazzolla,pas5,member
+user6,Miguel,Cabrera,pass6,member
+user7,Juan,Arango,pass7,member
+user8,María,Machado,pass8,member
+user9,David,Heinemeier,pass9,member
+user10,Michael,Jordan,pass10,member
+donvito,Víctor,Zambrano,secretill0.2025,member
+michelito,Michel,Zambrano,michelito.2025,librarian
+mirnita,Mirna,Sarabia,mirna1,member

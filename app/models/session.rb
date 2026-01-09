@@ -19,5 +19,5 @@
 class Session < ApplicationRecord
   belongs_to :user
 
-  DEFAULT_MINS = 1
+  DEFAULT_MINS = 5
 end
