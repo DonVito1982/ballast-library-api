@@ -13,6 +13,7 @@ Application requisites:
     ```bash
     bundle install
     ```
+* Create a `.env` file with a `JWT_KEY` key. Similar to `.env-sample`
 * Set the database
     ```bash
     rails db:create
