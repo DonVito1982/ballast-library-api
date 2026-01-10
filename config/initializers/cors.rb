@@ -5,7 +5,7 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
-LOCALHOST_REGEX = %r{\Ahttp:\/\/localhost(:300\d)?\z}.freeze
+LOCALHOST_REGEX = %r{\Ahttp:\/\/localhost(:\d\d\d\d)?\z}.freeze
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do

@@ -27,7 +27,30 @@ class BookBorrow < ApplicationRecord
   before_create :set_due_at
 
   scope :returned, -> { where.not(returned_at: nil) }
-  scope :due_day, lambda { |day| where(due_at: day.beginning_of_day..day.end_of_day) }
+  scope :due, -> { where(returned_at: nil) }
+  scope :due_day, lambda { |day| where(due_at: day.beginning_of_day..day.end_of_day).where(returned_at: nil) }
+
+  validate :available_book, :no_repeated_borrower
+
+  def returned?
+    returned_at.present?
+  end
+
+  def available_book
+    extra_available = 0
+    extra_available = 1 if persisted?
+    unless book.book_borrows.due.count < (book.total_copies + extra_available)
+      errors.add(:book, "Book not available")
+    end
+  end
+
+  def no_repeated_borrower
+    available_borrows = 0
+    available_borrows = 1 if persisted?
+    unless BookBorrow.where(user: user, book: book).count <= available_borrows
+      errors.add(:user, "Repeated borrower")
+    end
+  end
 
   private
 

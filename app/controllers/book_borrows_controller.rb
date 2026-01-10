@@ -23,10 +23,10 @@ class BookBorrowsController < ApplicationController
 
   # POST /book_borrows
   def create
-    @book_borrow = BookBorrow.new(book_borrow_params)
+    @book_borrow = current_user.book_borrows.create(create_book_borrow_params)
 
     if @book_borrow.save
-      render json: @book_borrow, status: :created, location: @book_borrow
+      render json: @book_borrow, status: :created
     else
       render json: @book_borrow.errors, status: :unprocessable_content
     end
@@ -34,7 +34,11 @@ class BookBorrowsController < ApplicationController
 
   # PATCH/PUT /book_borrows/1
   def update
-    if @book_borrow.update(book_borrow_params)
+    raise ActionController::BadRequest unless update_book_borrow_params
+
+    raise Error::Unauthorized unless current_user.librarian?
+
+    if @book_borrow.update(returned_at: Time.now)
       render json: @book_borrow
     else
       render json: @book_borrow.errors, status: :unprocessable_content
@@ -43,6 +47,8 @@ class BookBorrowsController < ApplicationController
 
   # DELETE /book_borrows/1
   def destroy
+    raise Error::Unauthorized unless current_user.librarian?
+
     @book_borrow.destroy!
   end
 
@@ -52,8 +58,11 @@ class BookBorrowsController < ApplicationController
       @book_borrow = BookBorrow.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
-    def book_borrow_params
-      params.expect(book_borrow: [ :due_at, :book_id, :user_id ])
+    def update_book_borrow_params
+      params.require(:book_borrow).permit(:returned)
+    end
+
+    def create_book_borrow_params
+      params.require(:book_borrow).permit(:book_id)
     end
 end
