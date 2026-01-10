@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Application requisites:
 
-Things you may want to cover:
+* Ruby 3.2.9
+* Sqlite3
 
-* Ruby version
+## Setup
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Clone the repository
+* `cd` into de repository path
+* Install the dependencies
+    ```bash
+    bundle install
+    ```
+* Set the database
+    ```bash
+    rails db:create
+    rails db:migrate
+    rails db:seed
+    ```
+* Start the server
+    ```bash
+    rails s
+    ```
