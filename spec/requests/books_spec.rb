@@ -112,7 +112,6 @@ RSpec.describe "Books", type: :request do
         book.reload
 
         expect(book.genre).to eq("New genre")
-        # expect(response.body).to eq(9)
         expect(parsed_body).to include(:id)
       end
     end

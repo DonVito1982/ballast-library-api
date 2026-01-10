@@ -57,8 +57,8 @@ borrow_params = [
   { username: "user5", "book": 5, due_in: -11 },
   { username: "user6", "book": 6, due_in: -3 },
   { username: "user7", "book": 7, due_in: -1 },
-  { username: "user8", "book": 8, due_in: 1 },
-  { username: "user9", "book": 9, due_in: 3 },
+  { username: "user8", "book": 8, due_in: 0 },
+  { username: "user9", "book": 9, due_in: 2 },
   { username: "user10", "book": 12, due_in: 5 },
   { username: "donvito", "book": 13, due_in: 6 },
   { username: "mirnita", "book": 14, due_in: 8 }

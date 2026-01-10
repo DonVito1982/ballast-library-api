@@ -4,9 +4,9 @@ class BookBorrowsController < ApplicationController
   # GET /book_borrows
   def index
     if current_user.librarian?
-      @book_borrows = BookBorrow.all
+      @book_borrows = BookBorrow.filtered_by(filter_params)
     else
-      @book_borrows = current_user.book_borrows
+      @book_borrows = current_user.book_borrows.filtered_by(filter_params)
     end
 
     render json: @book_borrows
@@ -64,5 +64,9 @@ class BookBorrowsController < ApplicationController
 
     def create_book_borrow_params
       params.require(:book_borrow).permit(:book_id)
+    end
+
+    def filter_params
+      params.permit(:returned)
     end
 end

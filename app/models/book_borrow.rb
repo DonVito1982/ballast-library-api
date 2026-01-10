@@ -36,6 +36,14 @@ class BookBorrow < ApplicationRecord
     returned_at.present?
   end
 
+  def self.filtered_by(filter_params)
+    if filter_params["returned"] == "false"
+      due
+    else
+      all
+    end
+  end
+
   def available_book
     extra_available = 0
     extra_available = 1 if persisted?

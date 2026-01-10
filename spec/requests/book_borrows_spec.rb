@@ -13,19 +13,21 @@ RSpec.describe "/book_borrows", type: :request do
     let(:parsed_body) { ActiveSupport::JSON.decode(response.body) }
 
     before do
-      create(:book_borrow, user: member, book: book)
+      create(:book_borrow, user: member, book: book, returned_at: Date.today)
       create(:book_borrow, user: other_member, book: other_book)
-      get url, headers: headers 
+      get url, headers: headers, params: params 
     end
 
     context "When no authenticated user" do
       let(:headers) { {} }
+      let(:params) { {} }
+
       it_behaves_like "an unauthorized request"
     end
 
     context "When a member is logged in" do
       let(:headers) { authenticated_header(member) }
-
+      let(:params) { {} }
 
       it "responds with ok" do
         expect(response).to be_successful
@@ -43,7 +45,7 @@ RSpec.describe "/book_borrows", type: :request do
 
     context "When a librarian is logged in" do
       let(:headers) { authenticated_header(librarian) }
-
+      let(:params) { { returned: "false" } }
 
       it "responds with ok" do
         expect(response).to be_successful
@@ -56,7 +58,7 @@ RSpec.describe "/book_borrows", type: :request do
 
         response_user_ids = parsed_body.map { |item| item["id"] }
 
-        expect(response_user_ids).to include(member.id)
+        expect(response_user_ids).not_to include(member.id)
         expect(response_user_ids).to include(other_member.id)
       end
     end

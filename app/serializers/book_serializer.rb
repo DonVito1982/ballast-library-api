@@ -12,5 +12,9 @@
 #  updated_at   :datetime         not null
 #
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :author, :genre, :isbn, :title, :total_copies
+  attributes :id, :author, :genre, :isbn, :title, :total_copies, :available_copies
+
+  def available_copies
+    object.total_copies - object.book_borrows.due.count
+  end
 end
