@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    header = request.headers['Authorization']
+    header = request.headers["Authorization"]
     if header
       token = header.split(" ")[1]
       begin
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
 
   def current_user
     if decoded_token
-      user_id = decoded_token[0]['user_id']
+      user_id = decoded_token[0]["user_id"]
       @user = User.find_by(id: user_id)
       @user.alive_sessions.count > 0 ? @user : nil
     end
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::API
 
   def authorized
     unless !!current_user
-      render json: { message: 'Please log in' }, status: :unauthorized
+      render json: { message: "Please log in" }, status: :unauthorized
     end
   end
 end

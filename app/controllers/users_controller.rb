@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [ :create ]
   rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
 
   def create
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     }, status: :created
   end
 
-  def me 
+  def me
     render json: current_user, status: :ok
   end
 

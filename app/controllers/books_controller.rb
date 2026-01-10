@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, except: [:index, :create]
+  before_action :set_book, except: [ :index, :create ]
 
   def index
     @books = Book.filtered_by(filter_params)

@@ -14,7 +14,7 @@
 class User < ApplicationRecord
   has_secure_password
   validates :username, uniqueness: true
-  enum :role, [:librarian, :member]
+  enum :role, [ :librarian, :member ]
 
   has_many :sessions, dependent: :destroy
   has_many :book_borrows

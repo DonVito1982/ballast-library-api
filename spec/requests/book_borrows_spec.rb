@@ -15,7 +15,7 @@ RSpec.describe "/book_borrows", type: :request do
     before do
       create(:book_borrow, user: member, book: book, returned_at: Date.today)
       create(:book_borrow, user: other_member, book: other_book)
-      get url, headers: headers, params: params 
+      get url, headers: headers, params: params
     end
 
     context "When no authenticated user" do
