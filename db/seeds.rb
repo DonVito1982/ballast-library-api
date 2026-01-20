@@ -75,7 +75,7 @@ borrow_params.each do |borrow|
     puts book_borrow.due_at
     puts "Updated book borrow for #{borrow[:username]}"
   else
-    book_borrow = user.book_borrows.create(book: book)
+    book_borrow = book.book_borrows.create(user: user)
     book_borrow.update(due_at: Time.now + borrow[:due_in].days)
     puts "Created book borrow for #{borrow[:username]}"
   end
