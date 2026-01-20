@@ -116,4 +116,41 @@ RSpec.describe "Books", type: :request do
       end
     end
   end
+
+  describe "DELETE /books/:id" do
+    let(:book) { create(:book) }
+    let(:url) { book_path(book) }
+    let(:member) { create(:user) }
+    let(:librarian) { create(:user, :librarian) }
+
+    before { delete url, headers: headers }
+
+    context "Logged member" do
+      let(:headers) { authenticated_header(member) }
+
+      it_behaves_like "an unauthorized request"
+
+      it "does not delete the book" do
+        expect(Book.exists?(book.id)).to be true
+      end
+    end
+
+    context "Logged librarian" do
+      let(:headers) { authenticated_header(librarian) }
+
+      it "deletes the book" do
+        expect(response).to have_http_status(:no_content)
+        expect(Book.exists?(book.id)).to be false
+      end
+    end
+
+    context "Non-existent book" do
+      let(:url) { book_path(id: 99999) }
+      let(:headers) { authenticated_header(librarian) }
+
+      it "returns not found" do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end

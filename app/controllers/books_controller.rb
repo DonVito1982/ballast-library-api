@@ -24,6 +24,12 @@ class BooksController < ApplicationController
     render json: @book
   end
 
+  def destroy
+    raise Error::Unauthorized unless current_user.librarian?
+
+    @book.destroy!
+  end
+
   private
   def book_params
     params.require(:book).permit(%i[genre title author isbn])
