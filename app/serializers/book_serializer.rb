@@ -15,6 +15,8 @@ class BookSerializer < ActiveModel::Serializer
   attributes :id, :author, :genre, :isbn, :title, :total_copies, :available_copies
 
   def available_copies
-    object.total_copies - object.book_borrows.due.count
+    # Use select to avoid additional queries when book_borrows are already loaded
+    due_borrows_count = object.book_borrows.select { |borrow| borrow.returned_at.nil? }.size
+    object.total_copies - due_borrows_count
   end
 end
