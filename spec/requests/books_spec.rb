@@ -144,6 +144,22 @@ RSpec.describe "Books", type: :request do
       end
     end
 
+    context "Book with associated borrows" do
+      it "returns unprocessable entity and does not delete the book" do
+        borrow_user = create(:user)
+        book_with_borrows = create(:book, total_copies: 1)
+        book_borrow = create(:book_borrow, book: book_with_borrows, user: borrow_user)
+        
+        expect(book_borrow).to be_persisted
+        expect(book_with_borrows.book_borrows.count).to eq(1)
+        
+        delete book_path(book_with_borrows), headers: authenticated_header(librarian)
+        
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(Book.exists?(book_with_borrows.id)).to be true
+      end
+    end
+
     context "Non-existent book" do
       let(:url) { book_path(id: 99999) }
       let(:headers) { authenticated_header(librarian) }

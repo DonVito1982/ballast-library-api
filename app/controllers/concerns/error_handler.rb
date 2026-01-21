@@ -20,6 +20,14 @@ module ErrorHandler
       render_error(exception, :not_found)
     end
 
+    rescue_from ActiveRecord::InvalidForeignKey do |exception|
+      render_error(exception, :unprocessable_entity)
+    end
+
+    rescue_from ActiveRecord::RecordNotDestroyed do |exception|
+      render_error(exception, :unprocessable_entity)
+    end
+
     rescue_from Error::Unauthorized do |exception|
       render_error(exception, :unauthorized)
     end

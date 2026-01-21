@@ -12,7 +12,7 @@
 #  updated_at   :datetime         not null
 #
 class Book < ApplicationRecord
-  has_many :book_borrows
+  has_many :book_borrows, dependent: :restrict_with_error
 
   def self.filtered_by(filter_params)
     result = all

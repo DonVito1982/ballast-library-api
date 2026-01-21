@@ -22,8 +22,8 @@
 #
 FactoryBot.define do
   factory :book_borrow do
-    due_at { "2026-01-09 11:26:28" }
-    book_id { nil }
-    user_id { nil }
+    due_at { 2.weeks.from_now }
+    association :book
+    association :user
   end
 end
