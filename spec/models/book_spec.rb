@@ -35,7 +35,7 @@ RSpec.describe Book, type: :model do
 
     context "when book has associated borrows" do
       let(:book) { create(:book, total_copies: 1) }
-      
+
       before do
         create(:book_borrow, book: book, user: user)
       end
