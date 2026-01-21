@@ -1,5 +1,5 @@
 shared_examples_for "a bad request" do
-  it "responds with an unauthorized status" do
+  it "responds with a bad request status" do
     expect(response).to have_http_status :bad_request
   end
 end
