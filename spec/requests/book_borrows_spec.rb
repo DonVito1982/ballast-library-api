@@ -22,7 +22,7 @@ RSpec.describe "/book_borrows", type: :request do
       let(:headers) { {} }
       let(:params) { {} }
 
-      it_behaves_like "an unauthorized request"
+      it_behaves_like "an unauthenticated request"
     end
 
     context "When a member is logged in" do
