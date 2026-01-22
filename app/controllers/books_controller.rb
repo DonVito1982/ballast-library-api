@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, except: [ :index, :create ]
+  before_action :require_librarian, only: %i[create update destroy]
 
   def index
     @books = Book.filtered_by(filter_params).includes(:book_borrows)
@@ -11,22 +12,16 @@ class BooksController < ApplicationController
   end
 
   def create
-    raise Error::Unauthorized unless current_user.librarian?
-
     book = Book.create!(book_params)
     render json: book, status: :created
   end
 
   def update
-    raise Error::Unauthorized unless current_user.librarian?
-
     @book.update(book_params)
     render json: @book
   end
 
   def destroy
-    raise Error::Unauthorized unless current_user.librarian?
-
     @book.destroy!
   end
 
