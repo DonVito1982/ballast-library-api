@@ -14,5 +14,9 @@ Rails.application.routes.draw do
 
   resources :books
 
-  resources :book_borrows
+  resources :book_borrows, only: %i[index show create destroy] do
+    member do
+      patch :return
+    end
+  end
 end

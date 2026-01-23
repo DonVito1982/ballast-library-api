@@ -110,12 +110,11 @@ RSpec.describe "/book_borrows", type: :request do
     end
   end
 
-  describe "PATCH /update" do
-    let(:url) { book_borrow_path(book_borrow) }
+  describe "PATCH /return" do
+    let(:url) { return_book_borrow_path(book_borrow) }
     let(:book_borrow) { create(:book_borrow, user: member, book:) }
-    let(:params) { { book_borrow: { returned: "true" } } }
 
-    before { patch url, headers:, params: }
+    before { patch url, headers: }
 
     context "with logged in member" do
       let(:headers) { authenticated_header(member) }
