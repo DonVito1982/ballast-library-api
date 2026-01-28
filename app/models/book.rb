@@ -43,7 +43,7 @@ class Book < ApplicationRecord
 
   def check_pending_borrows
     if book_borrows.due.exists?
-      errors.add(:base, "Cannot delet book with pending borrows")
+      errors.add(:base, "Cannot delete book with pending borrows")
       throw :abort
     end
   end
