@@ -12,7 +12,8 @@
 #  updated_at   :datetime         not null
 #
 class Book < ApplicationRecord
-  has_many :book_borrows, dependent: :restrict_with_error
+  has_many :book_borrows, dependent: :destroy
+  before_destroy :check_pending_borrows, prepend: true
 
   def self.filtered_by(filter_params)
     result = all
@@ -36,5 +37,14 @@ class Book < ApplicationRecord
     end
 
     result
+  end
+
+  private
+
+  def check_pending_borrows
+    if book_borrows.due.exists?
+      errors.add(:base, "Cannot delet book with pending borrows")
+      throw :abort
+    end
   end
 end
